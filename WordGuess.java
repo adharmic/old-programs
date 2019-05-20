@@ -1,25 +1,21 @@
 import java.util.Scanner;
-public class Tester {
+public class WordGuess {
     public static void main(String[] args) {
-        System.out.println(Scrambler.scrambleWord("TAN"));
-        System.out.println(Scrambler.scrambleWord("ABRACADABRA"));
-        System.out.println(Scrambler.scrambleWord("WHOA"));
-        System.out.println(Scrambler.scrambleWord("AARDVARK"));
-        System.out.println(Scrambler.scrambleWord("EGGS"));
-        System.out.println(Scrambler.scrambleWord("A"));
-        System.out.println(Scrambler.scrambleWord("PARMESAN"));
-        System.out.println(Scrambler.scrambleWord("NIAGARA"));
         
-        //Remind me to make this a game the user can play, yeah?
         System.out.println("\n");
         HiddenWord puzzle = new HiddenWord();
         
-        System.out.println("The word you need to guess has " + puzzle.getAnswer().length() + " letters.");
+        System.out.println("The word you need to guess has " + puzzle.getAnswer().length() + " letters. \nA plus sign (\"+\") means that the letter is correct, but in the wrong place. \nType 'H' for a hint!");
         Scanner input = new Scanner(System.in);
         System.out.print("First guess: ");
         String guess = input.nextLine();
         while(!(isLonger(guess,puzzle.getAnswer()))) {
-            System.out.println("Too short.");
+            if(guess.toUpperCase().equals("H"))
+                System.out.println(HiddenWord.scrambleAll());
+            else if(!guess.matches("^[a-zA-Z]*$"))
+                System.out.println("Please limit your entry to only letters.");
+            else
+                System.out.println("Too short.");
             System.out.print("Next guess: ");
             guess = input.nextLine();
         }
@@ -74,7 +70,7 @@ class Scrambler {
 
 class HiddenWord {
     private String toGuess;
-    private String[] possibleAnswers = {"HELLO","HEART","TEETH","GHOST","JOKER","POOL","CHICKEN","CHINESE"};
+    private String[] possibleAnswers = {"HELLO","HEART","TEETH","GHOST","JOKER","POOL","CHICKEN","ABRACADABRA", "EGGS", "PARMESAN", "NIAGARA", "AARDVARK"};
     public HiddenWord() {
         int length = possibleAnswers.length - 1;
         int rand = (int)(Math.random()*(length));
@@ -88,6 +84,11 @@ class HiddenWord {
     
     public String getAnswer() {
         return toGuess;
+    }
+    
+    public void scrambleAll() {
+        for(String answer: possibleAnswers)
+            System.out.println(Scrambler.scrambleWord(answer));
     }
     
     public String getHint(String word) {
