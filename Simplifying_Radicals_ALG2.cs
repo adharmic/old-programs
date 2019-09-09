@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simplifying_Radicals_ALG2
+public class SimpRad
 {
-    class Program
-    {
         //Checks for digit values.
         static bool IsDigitsOnly(string str)
         {
@@ -131,7 +129,6 @@ namespace Simplifying_Radicals_ALG2
             }
 
         }
-    }
 }
 
 
